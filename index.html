@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeethaKhata — India's #1 Sweet Shop POS & Business Management App</title>
+  <meta name="description"
+    content="MeethaKhata: Billing, Inventory & Staff Management app built for Indian sweet shops. Fast billing, WhatsApp reports, gift box builder, festival booking & more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --maroon: #7D1F2E;
+      --gold: #C8922A;
+      --green: #2D7A4F;
+      --cream: #FFF4E8;
+      --dark: #1C0A02;
+      --white: #FFFFFF;
+      --heading: 'Plus Jakarta Sans', sans-serif;
+      --body: 'DM Sans', sans-serif;
+      --shadow-sm: 0 2px 8px rgba(28, 10, 2, .06);
+      --shadow-md: 0 8px 24px rgba(125, 31, 46, .08);
+      --shadow-lg: 0 14px 36px rgba(125, 31, 46, .12);
+      --radius: 18px;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: var(--body);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: var(--white)
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      background: transparent
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--heading);
+      color: var(--maroon);
+      line-height: 1.18
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1160px;
+      margin: 0 auto
+    }
+
+    /* Dot pattern util */
+    .dot-pattern {
+      background-image: radial-gradient(circle, rgba(200, 146, 42, .12) 1px, transparent 1px);
+      background-size: 22px 22px
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--heading);
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all .25s ease;
+      font-size: 15px;
+      padding: 13px 28px;
+      gap: 6px
+    }
+
+    .btn-maroon {
+      background: var(--maroon);
+      color: var(--white);
+      border-color: var(--maroon)
+    }
+
+    .btn-maroon:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md)
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--white);
+      border-color: var(--gold)
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200, 146, 42, .25)
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--maroon);
+      border-color: var(--maroon)
+    }
+
+    .btn-outline:hover {
+      background: rgba(125, 31, 46, .07);
+      transform: translateY(-2px)
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .5)
+    }
+
+    .btn-outline-white:hover {
+      background: rgba(255, 255, 255, .12);
+      transform: translateY(-2px)
+    }
+
+    .btn-lg {
+      padding: 16px 36px;
+      font-size: 17px;
+      border-radius: 14px
+    }
+
+    /* Section label */
+    .section-label {
+      display: inline-block;
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px
+    }
+
+    .section-heading {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      margin-bottom: 14px
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: #5a4032;
+      max-width: 560px;
+      line-height: 1.65
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s ease, transform .55s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ===== 1. NAVIGATION ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid rgba(125, 31, 46, .1);
+      padding: 0 0
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px
+    }
+
+    .nav-logo img {
+      height: 36px;
+      background: transparent;
+      mix-blend-mode: multiply
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none
+    }
+
+    .nav-links a {
+      font-family: var(--heading);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--dark);
+      opacity: .78;
+      transition: opacity .2s
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--maroon)
+    }
+
+    .nav-btns {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .nav-btns .btn {
+      padding: 10px 20px;
+      font-size: 13px
+    }
+
+    /* ===== 2. HERO ===== */
+    .hero {
+      background: var(--cream);
+      padding: 72px 0 64px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200, 146, 42, .09) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(200, 146, 42, .14), rgba(200, 146, 42, .06));
+      border: 1px solid rgba(200, 146, 42, .22);
+      border-radius: 50px;
+      padding: 7px 18px 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-family: var(--heading)
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 4.5vw, 54px);
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 20px
+    }
+
+    .hero h1 span {
+      display: block
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: #5a4032;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 500px
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 32px
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap
+    }
+
+    .hero-stat {
+      text-align: center
+    }
+
+    .hero-stat .num {
+      font-family: var(--heading);
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--maroon)
+    }
+
+    .hero-stat .lbl {
+      font-size: 12px;
+      color: #8a6e5e;
+      font-weight: 500
+    }
+
+    /* Hero Stage */
+    .hero-stage {
+      position: relative;
+      aspect-ratio: 1/1;
+      max-width: 520px;
+      margin: 0 auto;
+      width: 100%
+    }
+
+    .hero-stage img {
+      background: transparent !important;
+      mix-blend-mode: multiply
+    }
+
+    .center-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 36%;
+      animation: fadeInScale .6s .2s ease both;
+      z-index: 2
+    }
+
+    /* Orbit System */
+    .orbit-ring {
+      position: absolute;
+      inset: 0;
+      animation: orbitSpin 35s linear 3.5s infinite
+    }
+
+    .orbit-item {
+      position: absolute;
+      width: 28%;
+      animation: counterSpin 35s linear 3.5s infinite
+    }
+
+    .orbit-item img {
+      width: 100%;
+      animation: circleIn .5s ease both
+    }
+
+    /* Circle positions */
+    .oi-billing {
+      top: 0;
+      left: 36%
+    }
+
+    .oi-scanner {
+      top: 8%;
+      right: 0
+    }
+
+    .oi-reports {
+      bottom: 8%;
+      right: 0
+    }
+
+    .oi-stock {
+      bottom: 0;
+      left: 36%
+    }
+
+    .oi-whatsapp {
+      bottom: 8%;
+      left: 0
+    }
+
+    .oi-inventory {
+      top: 8%;
+      left: 0
+    }
+
+    /* Staggered fade-in delays */
+    .oi-billing img {
+      animation-delay: .9s
+    }
+
+    .oi-scanner img {
+      animation-delay: 1.15s
+    }
+
+    .oi-reports img {
+      animation-delay: 1.35s
+    }
+
+    .oi-stock img {
+      animation-delay: 1.55s
+    }
+
+    .oi-whatsapp img {
+      animation-delay: 1.35s
+    }
+
+    .oi-inventory img {
+      animation-delay: 1.15s
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.6)
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1)
+      }
+    }
+
+    @keyframes circleIn {
+      from {
+        opacity: 0;
+        transform: scale(.5) translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0)
+      }
+    }
+
+    @keyframes orbitSpin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @keyframes counterSpin {
+      to {
+        transform: rotate(-360deg)
+      }
+    }
+
+    /* ===== 3. TRUST BAR ===== */
+    .trust-bar {
+      background: var(--maroon);
+      padding: 20px 0;
+      overflow: hidden
+    }
+
+    .trust-bar .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      text-align: center
+    }
+
+    .trust-item {
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--cream);
+      white-space: nowrap
+    }
+
+    .trust-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0
+    }
+
+    /* ===== 4. PROBLEM ===== */
+    .problem {
+      background: var(--white);
+      padding: 80px 0
+    }
+
+    .problem .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center
+    }
+
+    .problem-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px
+    }
+
+    .problem-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      line-height: 1.6
+    }
+
+    .problem-icon {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(200, 50, 50, .1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #c83232;
+      font-weight: 700;
+      margin-top: 2px
+    }
+
+    .problem-img {
+      text-align: center
+    }
+
+    .problem-img img {
+      max-width: 400px;
+      margin: 0 auto;
+      mix-blend-mode: multiply;
+      background: transparent;
+      filter: drop-shadow(0 12px 32px rgba(125, 31, 46, .12))
+    }
+
+    /* ===== 5. SOLUTION ===== */
+    .solution {
+      background: var(--cream);
+      padding: 80px 0
+    }
+
+    .solution .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center
+    }
+
+    .solution-img img {
+      max-width: 420px;
+      margin: 0 auto;
+      mix-blend-mode: multiply;
+      background: transparent
+    }
+
+    .solution-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px
+    }
+
+    .solution-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      line-height: 1.6
+    }
+
+    .solution-icon {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(45, 122, 79, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 700;
+      margin-top: 2px
+    }
+
+    .gold-text {
+      color: var(--gold)
+    }
+
+    /* ===== 6. FEATURES ===== */
+    .features {
+      background: var(--cream);
+      padding: 80px 0
+    }
+
+    .features .head {
+      text-align: center;
+      margin-bottom: 48px
+    }
+
+    .features .head .section-sub {
+      margin: 0 auto
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 26px;
+      border: 2px solid transparent;
+      transition: all .25s ease;
+      cursor: default
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-lg)
+    }
+
+    .feature-emoji {
+      font-size: 48px;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(125, 31, 46, .06);
+      border-radius: 16px;
+      margin-bottom: 16px
+    }
+
+    .feature-tag {
+      display: inline-block;
+      font-family: var(--heading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(200, 146, 42, .1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #5a4032;
+      line-height: 1.6
+    }
+
+    /* ===== 7. HOW IT WORKS ===== */
+    .how {
+      background: var(--white);
+      padding: 80px 0
+    }
+
+    .how .head {
+      text-align: center;
+      margin-bottom: 48px
+    }
+
+    .how .head .section-sub {
+      margin: 0 auto
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px
+    }
+
+    .step-card {
+      text-align: center
+    }
+
+    .step-card img {
+      width: 100%;
+      max-width: 280px;
+      background: transparent !important;
+      mix-blend-mode: multiply;
+      display: block;
+      margin: 0 auto 18px
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-family: var(--heading);
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--white);
+      margin-bottom: 12px
+    }
+
+    .step-badge-1 {
+      background: var(--maroon)
+    }
+
+    .step-badge-2 {
+      background: var(--gold)
+    }
+
+    .step-badge-3 {
+      background: var(--green)
+    }
+
+    .step-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .step-card p {
+      font-size: 14px;
+      color: #5a4032;
+      line-height: 1.6;
+      max-width: 320px;
+      margin: 0 auto
+    }
+
+    /* ===== 8. FESTIVAL ===== */
+    .festival {
+      background: var(--maroon);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden
+    }
+
+    .festival::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255, 244, 232, .06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none
+    }
+
+    .festival .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .festival .section-label {
+      color: rgba(200, 146, 42, .9)
+    }
+
+    .festival .section-heading {
+      color: var(--cream)
+    }
+
+    .festival .section-heading .gold-text {
+      color: var(--gold)
+    }
+
+    .festival .section-sub {
+      color: rgba(255, 244, 232, .7)
+    }
+
+    .fest-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0 28px
+    }
+
+    .fest-pill {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: 13px;
+      color: var(--cream);
+      font-weight: 500
+    }
+
+    .fest-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .fest-card {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start
+    }
+
+    .fest-card-emoji {
+      font-size: 28px;
+      flex-shrink: 0
+    }
+
+    .fest-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 4px
+    }
+
+    .fest-card p {
+      font-size: 13px;
+      color: rgba(255, 244, 232, .65);
+      line-height: 1.55
+    }
+
+    .festival-img img {
+      width: 88%;
+      margin: 0 auto;
+      background: transparent !important;
+      filter: drop-shadow(0 0 40px rgba(200, 146, 42, .25))
+    }
+
+    /* ===== 9. TESTIMONIALS ===== */
+    .testimonials {
+      background: var(--cream);
+      padding: 80px 0
+    }
+
+    .testimonials .head {
+      text-align: center;
+      margin-bottom: 48px
+    }
+
+    .testimonials .head .section-sub {
+      margin: 0 auto
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px
+    }
+
+    .test-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm)
+    }
+
+    .test-stars {
+      color: var(--gold);
+      font-size: 16px;
+      margin-bottom: 12px;
+      letter-spacing: 2px
+    }
+
+    .test-quote {
+      font-size: 15px;
+      font-style: italic;
+      line-height: 1.65;
+      color: #3a2a1e;
+      margin-bottom: 18px
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .test-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--maroon);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0
+    }
+
+    .test-name {
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 14px
+    }
+
+    .test-shop {
+      font-size: 12px;
+      color: #8a6e5e
+    }
+
+    /* ===== 10. PRICING ===== */
+    .pricing {
+      background: var(--white);
+      padding: 80px 0
+    }
+
+    .pricing .head {
+      text-align: center;
+      margin-bottom: 48px
+    }
+
+    .pricing .head .section-sub {
+      margin: 0 auto
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 920px;
+      margin: 0 auto
+    }
+
+    .price-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 26px;
+      border: 2px solid rgba(125, 31, 46, .08);
+      text-align: center;
+      position: relative;
+      transition: all .25s ease
+    }
+
+    .price-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md)
+    }
+
+    .price-card.popular {
+      background: var(--maroon);
+      color: var(--cream);
+      border-color: var(--maroon);
+      transform: translateY(-14px);
+      box-shadow: var(--shadow-lg)
+    }
+
+    .price-card.popular:hover {
+      transform: translateY(-18px)
+    }
+
+    .price-card.popular h3,
+    .price-card.popular .price-amount,
+    .price-card.popular .price-period {
+      color: var(--cream)
+    }
+
+    .price-card.popular .price-features li {
+      color: rgba(255, 244, 232, .85);
+      border-color: rgba(255, 255, 255, .1)
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 5px 16px;
+      border-radius: 50px;
+      white-space: nowrap
+    }
+
+    .price-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px
+    }
+
+    .price-amount {
+      font-family: var(--heading);
+      font-weight: 800;
+      font-size: 38px;
+      color: var(--maroon)
+    }
+
+    .price-period {
+      font-size: 14px;
+      color: #8a6e5e;
+      margin-bottom: 4px
+    }
+
+    .price-setup {
+      font-size: 12px;
+      color: #8a6e5e;
+      margin-bottom: 18px
+    }
+
+    .price-card.popular .price-setup {
+      color: rgba(255, 244, 232, .6)
+    }
+
+    .price-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 24px
+    }
+
+    .price-features li {
+      font-size: 13.5px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(125, 31, 46, .06);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .price-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .price-card.popular .price-features li::before {
+      color: var(--gold)
+    }
+
+    .price-note {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+      color: #8a6e5e
+    }
+
+    /* ===== 11. FAQ ===== */
+    .faq {
+      background: var(--cream);
+      padding: 80px 0
+    }
+
+    .faq .head {
+      text-align: center;
+      margin-bottom: 40px
+    }
+
+    .faq-list {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm)
+    }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      cursor: pointer;
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--dark);
+      gap: 12px;
+      user-select: none
+    }
+
+    .faq-toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(125, 31, 46, .07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--maroon);
+      transition: transform .3s ease;
+      flex-shrink: 0
+    }
+
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg)
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease
+    }
+
+    .faq-a-inner {
+      padding: 0 22px 18px;
+      font-size: 14px;
+      color: #5a4032;
+      line-height: 1.65
+    }
+
+    /* ===== 12. CTA ===== */
+    .cta-section {
+      background: var(--maroon);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255, 244, 232, .06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none
+    }
+
+    .cta-section .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .cta-section .section-label {
+      color: rgba(200, 146, 42, .9)
+    }
+
+    .cta-section .section-heading {
+      color: var(--cream);
+      font-size: clamp(28px, 4vw, 44px)
+    }
+
+    .cta-section .section-sub {
+      color: rgba(255, 244, 232, .7)
+    }
+
+    .cta-section .hero-ctas {
+      margin-top: 28px
+    }
+
+    .cta-img img {
+      width: 90%;
+      margin: 0 auto;
+      background: transparent !important;
+      filter: drop-shadow(0 0 50px rgba(200, 146, 42, .2))
+    }
+
+    /* ===== 13. FOOTER ===== */
+    .footer {
+      background: var(--dark);
+      padding: 56px 0 0;
+      color: rgba(255, 244, 232, .65)
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 40px
+    }
+
+    .footer-brand img {
+      height: 80px;
+      background: transparent !important;
+      mix-blend-mode: multiply;
+      margin-bottom: 14px
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 280px
+    }
+
+    .footer-col h4 {
+      font-family: var(--heading);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--cream);
+      margin-bottom: 16px
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .footer-col ul a {
+      font-size: 13.5px;
+      color: rgba(255, 244, 232, .55);
+      transition: color .2s
+    }
+
+    .footer-col ul a:hover {
+      color: var(--gold)
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 244, 232, .08);
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px
+    }
+
+    .footer-bottom .heart {
+      color: var(--gold)
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:900px) {
+
+      .hero .container,
+      .problem .container,
+      .solution .container,
+      .festival .container,
+      .cta-section .container {
+        grid-template-columns: 1fr
+      }
+
+      .hero-stage {
+        max-width: 380px;
+        margin-top: 20px
+      }
+
+      .feature-grid,
+      .steps-grid,
+      .price-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .test-grid {
+        grid-template-columns: 1fr
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .solution .container {
+        direction: ltr
+      }
+
+      .solution-img {
+        order: 2
+      }
+
+      .festival-img {
+        order: -1
+      }
+
+      .price-card.popular {
+        transform: translateY(0)
+      }
+
+      .price-card.popular:hover {
+        transform: translateY(-4px)
+      }
+    }
+
+    @media(max-width:600px) {
+      .nav-links {
+        display: none !important
+      }
+
+      .hero h1 {
+        font-size: 32px
+      }
+
+      .hero-ctas {
+        flex-direction: column
+      }
+
+      .hero-stats {
+        gap: 16px
+      }
+
+      .feature-grid,
+      .steps-grid,
+      .price-grid {
+        grid-template-columns: 1fr
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center
+      }
+
+      .trust-bar .container {
+        gap: 14px
+      }
+
+      .trust-item {
+        font-size: 12px
+      }
+
+      .nav-btns .btn {
+        padding: 8px 14px;
+        font-size: 12px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 1. NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo"><img src="img/logo-wordmark.png" alt="MeethaKhata"
+          style="background:transparent;mix-blend-mode:multiply"></a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-btns">
+        <a href="https://app.meethakhata.in/login" class="btn btn-outline" id="nav-login">Login</a>
+        <a href="https://app.meethakhata.in/trial" class="btn btn-gold" id="nav-trial">Free Trial Shuru Karo</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. HERO -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-left">
+        <div class="hero-badge">★ India Ka #1 Sweet Shop POS</div>
+        <h1><span>Bill karo.</span><span>Stock dekho.</span><span>Staff manage karo.</span></h1>
+        <p class="hero-sub">Raat ko WhatsApp pe report, counter pe token system, festival mein gift box billing — sab
+          kuch ek app mein. Koi jhanjhat nahi.</p>
+        <div class="hero-ctas">
+          <a href="https://app.meethakhata.in/trial" class="btn btn-maroon btn-lg" id="hero-cta-trial">14 Din Free Try
+            Karo — Koi Card Nahi</a>
+          <a href="#how" class="btn btn-outline" id="hero-cta-demo">Demo Dekho →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">500+</div>
+            <div class="lbl">Active Shops</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">₹50Cr+</div>
+            <div class="lbl">Billed</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">4.9 ★</div>
+            <div class="lbl">Rating</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">15+</div>
+            <div class="lbl">States</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stage" style="background:transparent !important">
+        <img src="img/Center logo.png" alt="MeethaKhata" class="center-logo">
+        <div class="orbit-ring">
+          <div class="orbit-item oi-billing"><img src="img/circle-billing.png" alt="Billing"></div>
+          <div class="orbit-item oi-scanner"><img src="img/circle-scanner.png" alt="Scanner"></div>
+          <div class="orbit-item oi-reports"><img src="img/circle-reports.png" alt="Reports"></div>
+          <div class="orbit-item oi-stock"><img src="img/circle-stock.png" alt="Stock"></div>
+          <div class="orbit-item oi-whatsapp"><img src="img/circle-whatsapp.png" alt="WhatsApp"></div>
+          <div class="orbit-item oi-inventory"><img src="img/circle-inventory.png" alt="Inventory"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. TRUST BAR -->
+  <section class="trust-bar">
+    <div class="container">
+      <span class="trust-item">500+ Active Shops</span><span class="trust-dot"></span>
+      <span class="trust-item">₹50 Crore+ Billed</span><span class="trust-dot"></span>
+      <span class="trust-item">4.9 ★ Rating</span><span class="trust-dot"></span>
+      <span class="trust-item">15+ States</span><span class="trust-dot"></span>
+      <span class="trust-item">Mumbai</span><span class="trust-dot"></span>
+      <span class="trust-item">Pune</span><span class="trust-dot"></span>
+      <span class="trust-item">Surat</span><span class="trust-dot"></span>
+      <span class="trust-item">Indore</span><span class="trust-dot"></span>
+      <span class="trust-item">Jaipur</span>
+    </div>
+  </section>
+
+  <!-- 4. PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-text reveal">
+        <span class="section-label">Samajhte hain aapki takleef</span>
+        <h2 class="section-heading">Kya aapki dukaan mein bhi ye hota hai?</h2>
+        <ul class="problem-list">
+          <li><span class="problem-icon">✗</span>Raat ko 2 ghante bills manually add karne padte hain — thaka dene wala
+            kaam</li>
+          <li><span class="problem-icon">✗</span>Staff ka individual sale track nahi hota — kaun kitna becha, pata nahi
+          </li>
+          <li><span class="problem-icon">✗</span>Counter pe bill cancel karke chori — owner ko pata bhi nahi chalta</li>
+          <li><span class="problem-icon">✗</span>Festival mein stock khatam — advance booking ka koi system nahi</li>
+          <li><span class="problem-icon">✗</span>Gift boxes manually calculate karna — time waste aur mistakes hoti hain
+          </li>
+          <li><span class="problem-icon">✗</span>Vendor ka udhar yaad nahi rehta — kitna dena hai, kab dena hai?</li>
+        </ul>
+      </div>
+      <div class="problem-img reveal" style="background:transparent !important">
+        <img src="img/problem.png" alt="Problems faced by sweet shop owners">
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SOLUTION -->
+  <section class="solution" id="solution">
+    <div class="container">
+      <div class="solution-img reveal" style="background:transparent !important">
+        <img src="img/solution.png" alt="MeethaKhata solution">
+      </div>
+      <div class="solution-text reveal">
+        <span class="section-label">MeethaKhata ka solution</span>
+        <h2 class="section-heading">Ab sab kuch <span class="gold-text">automatic</span> hai</h2>
+        <ul class="solution-list">
+          <li><span class="solution-icon">✓</span>Raat 9 baje automatically WhatsApp pe report — ghar baithe dekho</li>
+          <li><span class="solution-icon">✓</span>Har counter staff ka individual sale dashboard mein live — ek nazar
+            mein sab</li>
+          <li><span class="solution-icon">✓</span>Anti-theft audit log — ek bhi cancel bill track hoti hai, owner ko
+            alert milta hai</li>
+          <li><span class="solution-icon">✓</span>Festival advance booking system — ek bhi order miss nahi hoga</li>
+          <li><span class="solution-icon">✓</span>Gift box builder — size choose karo, sweets add karo, price automatic
+          </li>
+          <li><span class="solution-icon">✓</span>Vendor payment tracker — due date pe WhatsApp reminder automatically
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="head">
+        <span class="section-label">Kya kya milega</span>
+        <h2 class="section-heading">Sweet shop ke liye banaya gaya hai</h2>
+        <p class="section-sub">Vyapar aur Tally generic tools hain. MeethaKhata specifically aapki dukaan ke liye design
+          hua hai.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="feature-emoji">🧾</div><span class="feature-tag">Most Used</span>
+          <h3>Fast Billing + Token System</h3>
+          <p>1 minute mein bill banao, token print karo, WhatsApp pe share karo. Counter rush mein bhi tension nahi.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-emoji">🤖</div><span class="feature-tag">100% Unique</span>
+          <h3>AI Bill Scanner</h3>
+          <p>Vendor ka invoice photo khicho — AI 5 seconds mein sab items stock mein daal deta hai. Manual entry zero.
+          </p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-emoji">🎁</div><span class="feature-tag">Festival Ready</span>
+          <h3>Gift Box Builder</h3>
+          <p>Diwali gift boxes 2 minute mein banao. Weight choose karo, sweets add karo, price automatic.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-emoji">📦</div><span class="feature-tag">Save Money</span>
+          <h3>Smart Stock Alerts</h3>
+          <p>Stock level live track hota hai. Expiry dates alert karta hai. Wastage automatically expense mein record.
+          </p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-emoji">📈</div><span class="feature-tag">Business Intelligence</span>
+          <h3>Reports & Analytics</h3>
+          <p>Sales, profit, staff performance — sab kuch ek tap pe. Export to PDF ya Excel kabhi bhi.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-emoji">💬</div><span class="feature-tag">100% Unique</span>
+          <h3>EOD WhatsApp Report</h3>
+          <p>Raat 9 baje automatically WhatsApp aata hai — aaj kitna hua, kitna bacha, kon top tha.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="container">
+      <div class="head">
+        <span class="section-label">Shuru karna bahut aasaan hai</span>
+        <h2 class="section-heading">3 steps mein apni dukaan ready karo</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <img src="img/step1.png" alt="Step 1 — Register" style="background:transparent;mix-blend-mode:multiply">
+          <span class="step-badge step-badge-1">1</span>
+          <h3>Apni dukaan register karo</h3>
+          <p>Sirf naam, phone number aur city chahiye. 2 minute mein account ready. Koi credit card nahi, koi paperwork
+            nahi.</p>
+        </div>
+        <div class="step-card reveal">
+          <img src="img/step2.png" alt="Step 2 — Add Products" style="background:transparent;mix-blend-mode:multiply">
+          <span class="step-badge step-badge-2">2</span>
+          <h3>Products aur staff add karo</h3>
+          <p>Purani vendor bills scan karo — AI automatically sab items add kar deta hai. Staff ke login IDs 1 click
+            mein bano.</p>
+        </div>
+        <div class="step-card reveal">
+          <img src="img/step3.png" alt="Step 3 — Start Billing" style="background:transparent;mix-blend-mode:multiply">
+          <span class="step-badge step-badge-3">3</span>
+          <h3>Billing shuru karo, profit dekho</h3>
+          <p>Pehle din se hi sab live. Aur raat ko WhatsApp pe report — bina app khole sab pata chale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FESTIVAL -->
+  <section class="festival" id="festival">
+    <div class="container">
+      <div class="festival-text reveal">
+        <span class="section-label">Sirf sweet shops ke liye</span>
+        <h2 class="section-heading">Festival ka season? <span class="gold-text">MeethaKhata ready hai!</span></h2>
+        <p class="section-sub">Diwali, Holi, Eid, Navratri — har festival pe dukaan 2x busy hoti hai.</p>
+        <div class="fest-pills">
+          <span class="fest-pill">🪔 Diwali</span><span class="fest-pill">🎨 Holi</span><span class="fest-pill">🐘
+            Ganesh Chaturthi</span>
+          <span class="fest-pill">☪️ Eid</span><span class="fest-pill">🌺 Navratri</span><span class="fest-pill">🎊
+            Dussehra</span>
+        </div>
+        <div class="fest-cards">
+          <div class="fest-card"><span class="fest-card-emoji">🎁</span>
+            <div>
+              <h4>Advance Booking System</h4>
+              <p>Festival se 1 mahine pehle orders book karo. Ek bhi order miss nahi hoga.</p>
+            </div>
+          </div>
+          <div class="fest-card"><span class="fest-card-emoji">📦</span>
+            <div>
+              <h4>Gift Box Builder</h4>
+              <p>Custom gift boxes banao — 250g se 2kg tak. Multiple sweets mix karo, price automatic.</p>
+            </div>
+          </div>
+          <div class="fest-card"><span class="fest-card-emoji">🏷️</span>
+            <div>
+              <h4>Festival Auto-Offers</h4>
+              <p>7 din pehle reminder aata hai. Billing counter pe automatically apply hoti hai offer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="festival-img reveal" style="background:transparent !important">
+        <img src="img/festival.png" alt="Festival features">
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="head">
+        <span class="section-label">Asli log, asli results</span>
+        <h2 class="section-heading">Shop owners kya bol rahe hain</h2>
+        <p class="section-sub">500+ shops already MeethaKhata use kar rahe hain. 4.9 ★ average rating.</p>
+      </div>
+      <div class="test-grid">
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Pehle raat ko 2 ghante sab hisaab karta tha. Ab WhatsApp pe report aa jaati hai aur
+            main ghar pe baith ke dekh leta hoon. Zindagi aasaan ho gayi!"</p>
+          <div class="test-author">
+            <div class="test-avatar">RK</div>
+            <div>
+              <div class="test-name">Ramesh Kumar</div>
+              <div class="test-shop">Ramesh Mithai Bhandar, Mumbai</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Festival mein advance booking ka system mila toh ek bhi order miss nahi hua. Diwali pe
+            ₹4 lakh ka business hua — pichle saal se double!"</p>
+          <div class="test-author">
+            <div class="test-avatar">PP</div>
+            <div>
+              <div class="test-name">Priya Patel</div>
+              <div class="test-shop">Patel Sweet House, Surat</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Staff ko laga main sab dekh raha hoon — counter pe chori bilkul band ho gayi.
+            Anti-theft feature ne ₹8,000/month extra bachaaye."</p>
+          <div class="test-author">
+            <div class="test-avatar">SA</div>
+            <div>
+              <div class="test-name">Suresh Agrawal</div>
+              <div class="test-shop">Shree Mithai, Indore</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">"Gift box builder ne meri speed double kar di. 500g box mein 5 sweets mix karo — price
+            automatic. Diwali mein 200 gift boxes bina mistake ke!"</p>
+          <div class="test-author">
+            <div class="test-avatar">MS</div>
+            <div>
+              <div class="test-name">Mahesh Shah</div>
+              <div class="test-shop">Krishna Mithai, Ahmedabad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="head">
+        <span class="section-label">Simple pricing</span>
+        <h2 class="section-heading">Apni dukaan ke liye sahi plan chuno</h2>
+        <p class="section-sub">Sab plans mein 14 din free trial. Koi credit card nahi chahiye. Cancel kabhi bhi.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card reveal">
+          <h3>Basic</h3>
+          <div class="price-amount">₹499</div>
+          <div class="price-period">/month</div>
+          <div class="price-setup">+ ₹1,500 setup fee (one-time)</div>
+          <ul class="price-features">
+            <li>1 billing counter</li>
+            <li>Unlimited products</li>
+            <li>GST billing + receipt</li>
+            <li>WhatsApp bill share</li>
+            <li>Token system</li>
+            <li>Basic sales report</li>
+          </ul>
+          <a href="https://app.meethakhata.in/trial" class="btn btn-outline" style="width:100%"
+            id="price-basic-cta">Free Trial Shuru Karo</a>
+        </div>
+        <div class="price-card popular reveal">
+          <div class="popular-badge">⭐ Sabse Popular</div>
+          <h3>Pro</h3>
+          <div class="price-amount">₹999</div>
+          <div class="price-period">/month</div>
+          <div class="price-setup">+ ₹1,500 setup fee (one-time)</div>
+          <ul class="price-features">
+            <li>4 billing counters</li>
+            <li>Staff manager + tracking</li>
+            <li>Full inventory + shelf life</li>
+            <li>Customer CRM + loyalty</li>
+            <li>Gift box builder</li>
+            <li>Advance booking</li>
+            <li>Cash counter management</li>
+            <li>EOD WhatsApp report</li>
+            <li>Festival offers system</li>
+            <li>P&L + full analytics</li>
+          </ul>
+          <a href="https://app.meethakhata.in/trial" class="btn btn-gold" style="width:100%" id="price-pro-cta">Free
+            Trial Shuru Karo</a>
+        </div>
+        <div class="price-card reveal">
+          <h3>Premium</h3>
+          <div class="price-amount">₹1,799</div>
+          <div class="price-period">/month</div>
+          <div class="price-setup">+ ₹1,500 setup fee (one-time)</div>
+          <ul class="price-features">
+            <li>Everything in Pro</li>
+            <li>AI Bill Scanner</li>
+            <li>Anti-theft audit log</li>
+            <li>WhatsApp automation</li>
+            <li>Priority support</li>
+            <li>Monthly review call</li>
+          </ul>
+          <a href="https://app.meethakhata.in/trial" class="btn btn-outline" style="width:100%"
+            id="price-premium-cta">Free Trial Shuru Karo</a>
+        </div>
+      </div>
+      <p class="price-note">Saal bhar ke plan pe 2 mahine free · Koi contract nahi · Cancel kabhi bhi</p>
+    </div>
+  </section>
+
+  <!-- 11. FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="head">
+        <span class="section-label">Sawaal jawab</span>
+        <h2 class="section-heading">Aapke mann mein kya sawaal hain?</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-q">Kya ye app mobile pe chalega?<span class="faq-toggle">+</span></div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Haan bilkul! Android phone, iPhone, aur tablet — sab pe. Seedha meethakhata.in
+              kholo Chrome mein aur "Add to Home Screen" karo. Bilkul native app jaisa feel aayega.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Internet na ho toh kya hoga?<span class="faq-toggle">+</span></div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Offline billing bhi kaam karta hai! Bills bante rahe. Jab internet aayega,
+              automatically sab cloud pe sync ho jaayega. Counter pe internet ki tension nahi.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Mera data safe rahega?<span class="faq-toggle">+</span></div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Bilkul safe hai. Aapka data Indian servers pe store hota hai (Mumbai region). Bank
+              jaisi encryption hai. Sirf aap dekh sakte hain.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Staff ko training chahiye?<span class="faq-toggle">+</span></div>
+          <div class="faq-a">
+            <div class="faq-a-inner">10 minute mein koi bhi counter staff billing seekh jaata hai. Hum onboarding visit
+              karte hain aur Hindi video guide bhi milti hai.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Kitne counters chal sakte hain?<span class="faq-toggle">+</span></div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Basic plan mein 1 counter, Pro mein 4 counters, Premium mein unlimited counters.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">Cancel karna easy hai?<span class="faq-toggle">+</span></div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Haan, koi lock-in contract nahi hai. Kabhi bhi cancel kar sakte hain Settings se.
+              Data 30 din tak safe, download kar sakte hain.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. CTA -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <div class="cta-text">
+        <span class="section-label">Abhi shuru karo</span>
+        <h2 class="section-heading">14 din <span class="gold-text">bilkul free.</span> Koi card nahi chahiye.</h2>
+        <p class="section-sub">500+ shops already MeethaKhata use kar rahe hain. Aap kab shuru kar rahe hain?</p>
+        <div class="hero-ctas">
+          <a href="https://app.meethakhata.in/trial" class="btn btn-gold btn-lg" id="cta-trial">Free Trial Shuru Karo
+            →</a>
+          <a href="https://wa.me/919999999999?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon."
+            class="btn btn-outline-white" id="cta-whatsapp">WhatsApp pe Demo Dekho</a>
+        </div>
+      </div>
+      <div class="cta-img reveal" style="background:transparent !important">
+        <img src="img/cta.png" alt="MeethaKhata CTA">
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="img/logo-mascot.png" alt="Mithu Mascot" style="background:transparent">
+          <p>India ka #1 Sweet Shop POS aur Business Management App. Hisaab seedha, dhandha meetha!</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="https://app.meethakhata.in/trial">Free Trial</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="https://wa.me/919999999999">WhatsApp Support</a></li>
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 MeethaKhata. All rights reserved.</span>
+        <span>Made with <span class="heart">♥</span> for Indian Sweet Shop Owners</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Scroll Reveal */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* FAQ Accordion */
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const ans = item.querySelector('.faq-a');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-a').style.maxHeight = null;
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          ans.style.maxHeight = ans.scrollHeight + 'px';
+        }
+      });
+    });
+
+    /* Smooth scroll for nav links */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+
+</html>
