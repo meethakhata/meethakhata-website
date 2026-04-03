@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MeethaKhata — India's #1 Sweet Shop POS & Business Management App</title>
+  <link rel="icon" type="image/png" href="img/Fev-icon.png">
+  <link rel="apple-touch-icon" href="img/Fev-icon.png">
+  <meta name="theme-color" content="#7D1F2E">
   <meta name="description"
     content="MeethaKhata: Billing, Inventory & Staff Management app built for Indian sweet shops. Fast billing, WhatsApp reports, gift box builder, festival booking & more.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +16,16 @@
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
     rel="stylesheet">
   <style>
+    /* ===== GLOBAL OVERFLOW FIX ===== */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     /* ===== RESET & BASE ===== */
     *,
     *::before,
@@ -203,9 +216,13 @@
     }
 
     .nav-logo img {
-      height: 36px;
+      height: 32px;
+      width: auto;
+      max-width: 160px;
+      object-fit: contain;
       background: transparent;
-      mix-blend-mode: multiply
+      mix-blend-mode: multiply;
+      display: block;
     }
 
     .nav-links {
@@ -562,6 +579,13 @@
       grid-template-columns: 1fr 1fr;
       gap: 56px;
       align-items: center
+    }
+
+    .solution .container,
+    .solution .two-col,
+    .solution-grid {
+      overflow: hidden;
+      width: 100%;
     }
 
     .solution-img img {
@@ -1202,11 +1226,16 @@
       margin-bottom: 40px
     }
 
-    .footer-brand img {
-      height: 80px;
+    .footer-brand img,
+    .footer-logo-wrap img,
+    footer .nav-logo img,
+    footer img.footer-logo {
+      height: 72px;
+      width: auto;
       background: transparent !important;
-      mix-blend-mode: multiply;
-      margin-bottom: 14px
+      mix-blend-mode: normal !important;
+      display: block;
+      margin-bottom: 12px;
     }
 
     .footer-brand p {
@@ -1254,6 +1283,41 @@
     }
 
     /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .container {
+        padding-left: 16px;
+        padding-right: 16px;
+        width: 100%;
+      }
+
+      section {
+        overflow: hidden;
+      }
+
+      .footer-brand img,
+      .footer-logo-wrap img,
+      footer .nav-logo img {
+        height: 56px;
+      }
+
+      .solution .two-col,
+      .solution-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .solution .container {
+        padding: 0 20px;
+        overflow: hidden;
+      }
+      .solution img,
+      .solution .char-img {
+        max-width: 280px;
+        width: 100%;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+
     @media(max-width:900px) {
 
       .hero .container,
@@ -1309,6 +1373,22 @@
         display: none !important
       }
 
+      .nav-btns .btn-gold {
+        font-size: 11px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        white-space: nowrap;
+        max-width: 120px;
+        text-align: center;
+        line-height: 1.3;
+      }
+      .nav-btns .btn-outline {
+        display: none;
+      }
+      .navbar .container {
+        gap: 8px;
+      }
+
       .hero h1 {
         font-size: 32px
       }
@@ -1350,6 +1430,21 @@
         font-size: 12px
       }
     }
+
+    @media (max-width: 480px) {
+      .solution p,
+      .solution li,
+      .sol-text {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .footer-brand img,
+      .footer-logo-wrap img,
+      footer .nav-logo img {
+        height: 48px;
+      }
+    }
   </style>
 </head>
 
@@ -1368,7 +1463,7 @@
       </ul>
       <div class="nav-btns">
         <a href="https://app.meethakhata.in/login" class="btn btn-outline" id="nav-login">Login</a>
-        <a href="https://app.meethakhata.in/trial" class="btn btn-gold" id="nav-trial">Free Trial Shuru Karo</a>
+        <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-gold" id="nav-trial">Free Trial Shuru Karo</a>
       </div>
     </div>
   </nav>
@@ -1382,9 +1477,9 @@
         <p class="hero-sub">Raat ko WhatsApp pe report, counter pe token system, festival mein gift box billing — sab
           kuch ek app mein. Koi jhanjhat nahi.</p>
         <div class="hero-ctas">
-          <a href="https://app.meethakhata.in/trial" class="btn btn-maroon btn-lg" id="hero-cta-trial">14 Din Free Try
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-maroon btn-lg" id="hero-cta-trial">14 Din Free Try
             Karo — Koi Card Nahi</a>
-          <a href="#how" class="btn btn-outline" id="hero-cta-demo">Demo Dekho →</a>
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-outline" id="hero-cta-demo">Demo Dekho →</a>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -1684,7 +1779,7 @@
             <li>Token system</li>
             <li>Basic sales report</li>
           </ul>
-          <a href="https://app.meethakhata.in/trial" class="btn btn-outline" style="width:100%"
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-outline" style="width:100%"
             id="price-basic-cta">Free Trial Shuru Karo</a>
         </div>
         <div class="price-card popular reveal">
@@ -1705,7 +1800,7 @@
             <li>Festival offers system</li>
             <li>P&L + full analytics</li>
           </ul>
-          <a href="https://app.meethakhata.in/trial" class="btn btn-gold" style="width:100%" id="price-pro-cta">Free
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-gold" style="width:100%" id="price-pro-cta">Free
             Trial Shuru Karo</a>
         </div>
         <div class="price-card reveal">
@@ -1721,7 +1816,7 @@
             <li>Priority support</li>
             <li>Monthly review call</li>
           </ul>
-          <a href="https://app.meethakhata.in/trial" class="btn btn-outline" style="width:100%"
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-outline" style="width:100%"
             id="price-premium-cta">Free Trial Shuru Karo</a>
         </div>
       </div>
@@ -1791,9 +1886,9 @@
         <h2 class="section-heading">14 din <span class="gold-text">bilkul free.</span> Koi card nahi chahiye.</h2>
         <p class="section-sub">500+ shops already MeethaKhata use kar rahe hain. Aap kab shuru kar rahe hain?</p>
         <div class="hero-ctas">
-          <a href="https://app.meethakhata.in/trial" class="btn btn-gold btn-lg" id="cta-trial">Free Trial Shuru Karo
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-gold btn-lg" id="cta-trial">Free Trial Shuru Karo
             →</a>
-          <a href="https://wa.me/919999999999?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon."
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
             class="btn btn-outline-white" id="cta-whatsapp">WhatsApp pe Demo Dekho</a>
         </div>
       </div>
@@ -1817,7 +1912,7 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#how">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="https://app.meethakhata.in/trial">Free Trial</a></li>
+            <li><a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai.">Free Trial</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1832,7 +1927,7 @@
         <div class="footer-col">
           <h4>Support</h4>
           <ul>
-            <li><a href="https://wa.me/919999999999">WhatsApp Support</a></li>
+            <li><a href="https://wa.me/919920443421">WhatsApp Support</a></li>
             <li><a href="#">Help Centre</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Service</a></li>
