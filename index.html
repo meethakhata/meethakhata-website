@@ -199,10 +199,14 @@
 
     /* ===== 1. NAVIGATION ===== */
     .navbar {
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 200;
-      background: var(--white);
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
       border-bottom: 1px solid rgba(125, 31, 46, .1);
       padding: 0 0
     }
@@ -259,7 +263,7 @@
     /* ===== 2. HERO ===== */
     .hero {
       background: var(--cream);
-      padding: 72px 0 64px;
+      padding: 137px 0 64px;
       position: relative;
       overflow: hidden
     }
@@ -1445,6 +1449,200 @@
         height: 48px;
       }
     }
+
+    /* ===== FLOATING WA BUTTON ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      filter: drop-shadow(0 4px 16px rgba(37, 211, 102, 0.45));
+      animation: waFloat 3s ease-in-out infinite;
+    }
+
+    .wa-float-icon {
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .wa-float:hover .wa-float-icon {
+      transform: scale(1.1);
+    }
+
+    .wa-float-label {
+      background: #25D366;
+      color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+
+    .wa-float:hover .wa-float-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @keyframes waFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @media (max-width: 480px) {
+      .wa-float {
+        bottom: 20px;
+        right: 16px;
+      }
+      .wa-float-icon {
+        width: 52px;
+        height: 52px;
+      }
+      .wa-float-label {
+        display: none;
+      }
+    }
+
+    /* ===== COOKIE BANNER ===== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9998;
+      background: #1C0A02;
+      border-top: 2px solid rgba(200, 146, 42, 0.3);
+      padding: 16px 24px;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cookie-banner.visible {
+      transform: translateY(0);
+    }
+
+    .cookie-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cookie-text {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .cookie-emoji {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .cookie-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #FFF4E8;
+      margin-bottom: 3px;
+    }
+
+    .cookie-sub {
+      font-size: 12px;
+      color: rgba(255, 244, 232, 0.55);
+      line-height: 1.5;
+    }
+
+    .cookie-link {
+      color: #C8922A;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .cookie-btns {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .cookie-btn-reject {
+      padding: 9px 18px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 244, 232, 0.2);
+      background: transparent;
+      color: rgba(255, 244, 232, 0.7);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .cookie-btn-reject:hover {
+      border-color: rgba(255, 244, 232, 0.5);
+      color: #FFF4E8;
+    }
+
+    .cookie-btn-accept {
+      padding: 9px 20px;
+      border-radius: 10px;
+      border: none;
+      background: #C8922A;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .cookie-btn-accept:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 600px) {
+      .cookie-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .cookie-btns {
+        width: 100%;
+      }
+      .cookie-btn-reject,
+      .cookie-btn-accept {
+        flex: 1;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 
@@ -1483,11 +1681,11 @@
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
-            <div class="num">500+</div>
-            <div class="lbl">Active Shops</div>
+            <div class="num">50+</div>
+            <div class="lbl">Beta Users</div>
           </div>
           <div class="hero-stat">
-            <div class="num">₹50Cr+</div>
+            <div class="num">₹10L+</div>
             <div class="lbl">Billed</div>
           </div>
           <div class="hero-stat">
@@ -1495,8 +1693,8 @@
             <div class="lbl">Rating</div>
           </div>
           <div class="hero-stat">
-            <div class="num">15+</div>
-            <div class="lbl">States</div>
+            <div class="num">5+</div>
+            <div class="lbl">Cities</div>
           </div>
         </div>
       </div>
@@ -1517,10 +1715,10 @@
   <!-- 3. TRUST BAR -->
   <section class="trust-bar">
     <div class="container">
-      <span class="trust-item">500+ Active Shops</span><span class="trust-dot"></span>
-      <span class="trust-item">₹50 Crore+ Billed</span><span class="trust-dot"></span>
+      <span class="trust-item">50+ Active Shops</span><span class="trust-dot"></span>
+      <span class="trust-item">₹10L+ Billed</span><span class="trust-dot"></span>
       <span class="trust-item">4.9 ★ Rating</span><span class="trust-dot"></span>
-      <span class="trust-item">15+ States</span><span class="trust-dot"></span>
+      <span class="trust-item">5+ Cities</span><span class="trust-dot"></span>
       <span class="trust-item">Mumbai</span><span class="trust-dot"></span>
       <span class="trust-item">Pune</span><span class="trust-dot"></span>
       <span class="trust-item">Surat</span><span class="trust-dot"></span>
@@ -1972,7 +2170,71 @@
         if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       });
     });
+
+    function acceptCookies() {
+      localStorage.setItem('mk_cookie_consent', 'accepted');
+      hideCookieBanner();
+    }
+
+    function rejectCookies() {
+      localStorage.setItem('mk_cookie_consent', 'rejected');
+      hideCookieBanner();
+    }
+
+    function hideCookieBanner() {
+      document.getElementById('cookieBanner').classList.remove('visible');
+    }
+
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('mk_cookie_consent');
+      if (!consent) {
+        setTimeout(function() {
+          document.getElementById('cookieBanner').classList.add('visible');
+        }, 1500);
+      }
+    }
+
+    window.addEventListener('load', checkCookieConsent);
   </script>
+
+  <!-- WhatsApp Floating Button -->
+  <a class="wa-float" 
+     href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon." 
+     target="_blank" 
+     rel="noopener"
+     aria-label="Chat on WhatsApp">
+    <div class="wa-float-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.556 4.121 1.524 5.855L0 24l6.335-1.54A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-4.964-1.348l-.357-.212-3.692.897.933-3.577-.233-.368A9.786 9.786 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+      </svg>
+    </div>
+    <div class="wa-float-label">Chat with us</div>
+  </a>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <span class="cookie-emoji">🍪</span>
+        <div>
+          <div class="cookie-title">Hum cookies use karte hain</div>
+          <div class="cookie-sub">
+            Aapka experience better banane ke liye. 
+            <a href="#" class="cookie-link">Privacy Policy</a> padh sakte hain.
+          </div>
+        </div>
+      </div>
+      <div class="cookie-btns">
+        <button class="cookie-btn-reject" onclick="rejectCookies()">
+          Sirf zaroori
+        </button>
+        <button class="cookie-btn-accept" onclick="acceptCookies()">
+          Sab accept karo
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
