@@ -17,7 +17,8 @@
     rel="stylesheet">
   <style>
     /* ===== GLOBAL OVERFLOW FIX ===== */
-    html, body {
+    html,
+    body {
       overflow-x: hidden;
       max-width: 100%;
     }
@@ -206,7 +207,7 @@
       width: 100%;
       z-index: 1000;
       background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       border-bottom: 1px solid rgba(125, 31, 46, .1);
       padding: 0 0
     }
@@ -258,6 +259,179 @@
     .nav-btns .btn {
       padding: 10px 20px;
       font-size: 13px
+    }
+
+    #nav-trial {
+      padding: 10px 18px;
+      border-radius: 8px;
+    }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-switch {
+      position: relative;
+      display: inline-block;
+    }
+
+    .lang-btn {
+      background: var(--white);
+      color: var(--maroon);
+      border: 1px solid rgba(125, 31, 46, 0.1);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: var(--heading);
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn:hover {
+      background: #f5efe6;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      display: none;
+      flex-direction: column;
+      min-width: 150px;
+      overflow: hidden;
+      z-index: 1001;
+    }
+
+    .lang-switch.active .lang-dropdown {
+      display: flex;
+      animation: langFade 0.2s ease;
+    }
+
+    .lang-dropdown button {
+      background: transparent;
+      border: none;
+      padding: 10px 14px;
+      text-align: left;
+      font-family: var(--body);
+      font-weight: 500;
+      color: var(--maroon);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lang-dropdown button:hover {
+      background: var(--cream);
+    }
+
+    @keyframes langFade {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== HAMBURGER & MOBILE MENU ===== */
+    .hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: var(--maroon);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--cream);
+      z-index: 2000;
+      box-shadow: -4px 0 24px rgba(125, 31, 46, 0.1);
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      right: 0;
+    }
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .menu-close {
+      background: rgba(125, 31, 46, 0.1);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--maroon);
+      cursor: pointer;
+    }
+
+    .mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0;
+    }
+
+    .mobile-links a {
+      font-family: var(--heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--maroon);
+      display: block;
+    }
+
+    .mobile-lang-opts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(125, 31, 46, 0.1);
+    }
+
+    .mobile-lang-opts button {
+      background: var(--white);
+      border: 1px solid rgba(125, 31, 46, 0.1);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--maroon);
+      font-family: var(--body);
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
     }
 
     /* ===== 2. HERO ===== */
@@ -1309,10 +1483,12 @@
         grid-template-columns: 1fr;
         gap: 32px;
       }
+
       .solution .container {
         padding: 0 20px;
         overflow: hidden;
       }
+
       .solution img,
       .solution .char-img {
         max-width: 280px;
@@ -1372,9 +1548,30 @@
       }
     }
 
+    @media(max-width:800px) {
+
+      .nav-links,
+      .lang-switch {
+        display: none !important;
+      }
+
+      .nav-btns .btn-outline {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
     @media(max-width:600px) {
-      .nav-links {
-        display: none !important
+      .navbar .container {
+        height: 54px;
+        gap: 8px;
+      }
+
+      .nav-logo img {
+        height: 28px;
       }
 
       .nav-btns .btn-gold {
@@ -1382,15 +1579,8 @@
         padding: 8px 12px;
         border-radius: 8px;
         white-space: nowrap;
-        max-width: 120px;
         text-align: center;
         line-height: 1.3;
-      }
-      .nav-btns .btn-outline {
-        display: none;
-      }
-      .navbar .container {
-        gap: 8px;
       }
 
       .hero h1 {
@@ -1428,14 +1618,10 @@
       .trust-item {
         font-size: 12px
       }
-
-      .nav-btns .btn {
-        padding: 8px 14px;
-        font-size: 12px
-      }
     }
 
     @media (max-width: 480px) {
+
       .solution p,
       .solution li,
       .sol-text {
@@ -1503,8 +1689,15 @@
     }
 
     @keyframes waFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
     }
 
     @media (max-width: 480px) {
@@ -1512,10 +1705,12 @@
         bottom: 20px;
         right: 16px;
       }
+
       .wa-float-icon {
         width: 52px;
         height: 52px;
       }
+
       .wa-float-label {
         display: none;
       }
@@ -1634,9 +1829,11 @@
         align-items: flex-start;
         gap: 14px;
       }
+
       .cookie-btns {
         width: 100%;
       }
+
       .cookie-btn-reject,
       .cookie-btn-accept {
         flex: 1;
@@ -1660,11 +1857,45 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
       <div class="nav-btns">
-        <a href="https://app.meethakhata.in/login" class="btn btn-outline" id="nav-login">Login</a>
-        <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-gold" id="nav-trial">Free Trial Shuru Karo</a>
+        <div class="lang-switch">
+          <button class="lang-btn" id="lang-btn">🌐 EN ▼</button>
+          <div class="lang-dropdown">
+            <button onclick="resetLanguage()">Hinglish (Default)</button>
+            <button onclick="changeLang('en')">English</button>
+            <button onclick="changeLang('hi')">हिंदी</button>
+            <button onclick="changeLang('mr')">मराठी</button>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline" id="nav-login">Login</a>
+        <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+          class="btn btn-gold" id="nav-trial">Free Trial Shuru Karo</a>
+        <button class="hamburger" id="hamburger">☰</button>
       </div>
     </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <span
+        style="font-family:var(--heading); font-weight:700; font-size:16px; color:var(--maroon); display:flex; align-items:center; gap:6px;">🌐
+        Language</span>
+      <button class="menu-close" id="menu-close">✕</button>
+    </div>
+    <div class="mobile-lang-opts">
+      <button onclick="resetLanguage()">Hinglish (Default)</button>
+      <button onclick="changeLang('en')">English</button>
+      <button onclick="changeLang('hi')">हिंदी</button>
+      <button onclick="changeLang('mr')">मराठी</button>
+    </div>
+    <ul class="mobile-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#" class="mobile-login">Login</a></li>
+    </ul>
+  </div>
 
   <!-- 2. HERO -->
   <section class="hero" id="hero">
@@ -1675,9 +1906,11 @@
         <p class="hero-sub">Raat ko WhatsApp pe report, counter pe token system, festival mein gift box billing — sab
           kuch ek app mein. Koi jhanjhat nahi.</p>
         <div class="hero-ctas">
-          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-maroon btn-lg" id="hero-cta-trial">14 Din Free Try
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+            class="btn btn-maroon btn-lg" id="hero-cta-trial">14 Din Free Try
             Karo — Koi Card Nahi</a>
-          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-outline" id="hero-cta-demo">Demo Dekho →</a>
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+            class="btn btn-outline" id="hero-cta-demo">Demo Dekho →</a>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -1977,8 +2210,8 @@
             <li>Token system</li>
             <li>Basic sales report</li>
           </ul>
-          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-outline" style="width:100%"
-            id="price-basic-cta">Free Trial Shuru Karo</a>
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+            class="btn btn-outline" style="width:100%" id="price-basic-cta">Free Trial Shuru Karo</a>
         </div>
         <div class="price-card popular reveal">
           <div class="popular-badge">⭐ Sabse Popular</div>
@@ -1998,7 +2231,8 @@
             <li>Festival offers system</li>
             <li>P&L + full analytics</li>
           </ul>
-          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-gold" style="width:100%" id="price-pro-cta">Free
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+            class="btn btn-gold" style="width:100%" id="price-pro-cta">Free
             Trial Shuru Karo</a>
         </div>
         <div class="price-card reveal">
@@ -2014,8 +2248,8 @@
             <li>Priority support</li>
             <li>Monthly review call</li>
           </ul>
-          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-outline" style="width:100%"
-            id="price-premium-cta">Free Trial Shuru Karo</a>
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+            class="btn btn-outline" style="width:100%" id="price-premium-cta">Free Trial Shuru Karo</a>
         </div>
       </div>
       <p class="price-note">Saal bhar ke plan pe 2 mahine free · Koi contract nahi · Cancel kabhi bhi</p>
@@ -2084,7 +2318,8 @@
         <h2 class="section-heading">14 din <span class="gold-text">bilkul free.</span> Koi card nahi chahiye.</h2>
         <p class="section-sub">500+ shops already MeethaKhata use kar rahe hain. Aap kab shuru kar rahe hain?</p>
         <div class="hero-ctas">
-          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai." class="btn btn-gold btn-lg" id="cta-trial">Free Trial Shuru Karo
+          <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
+            class="btn btn-gold btn-lg" id="cta-trial">Free Trial Shuru Karo
             →</a>
           <a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai."
             class="btn btn-outline-white" id="cta-whatsapp">WhatsApp pe Demo Dekho</a>
@@ -2110,7 +2345,9 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#how">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai.">Free Trial</a></li>
+            <li><a
+                href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon.%20Free%20trial%20lena%20hai.">Free
+                Trial</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -2188,25 +2425,513 @@
     function checkCookieConsent() {
       const consent = localStorage.getItem('mk_cookie_consent');
       if (!consent) {
-        setTimeout(function() {
+        setTimeout(function () {
           document.getElementById('cookieBanner').classList.add('visible');
         }, 1500);
       }
     }
 
     window.addEventListener('load', checkCookieConsent);
+
+    /* Mobile Menu Logic */
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    const menuClose = document.getElementById('menu-close');
+
+    if (hamburger && mobileMenu && menuClose) {
+      hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+      menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    }
+
+    document.querySelectorAll('.mobile-links a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    /* Language logic */
+    const langBtn = document.getElementById('lang-btn');
+    const langSwitch = document.querySelector('.lang-switch');
+
+    if (langBtn && langSwitch) {
+      langBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langSwitch.classList.toggle('active');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!langSwitch.contains(e.target)) {
+          langSwitch.classList.remove('active');
+        }
+      });
+    }
+
+    /* ===== SELF-CONTAINED TRANSLATION SYSTEM ===== */
+    const originalTexts = new Map();
+    let currentLang = 'default';
+
+    /* Element map: [selector, translationKey, 'text'|'html'] */
+    const elementMap = [
+      /* NAV */
+      ['.nav-links li:nth-child(1) a', 'nav_features', 'text'],
+      ['.nav-links li:nth-child(2) a', 'nav_how', 'text'],
+      ['.nav-links li:nth-child(3) a', 'nav_pricing', 'text'],
+      ['.nav-links li:nth-child(4) a', 'nav_faq', 'text'],
+      ['#nav-login', 'nav_login', 'text'],
+      ['#nav-trial', 'nav_trial', 'text'],
+      /* MOBILE NAV */
+      ['.mobile-links li:nth-child(1) a', 'nav_features', 'text'],
+      ['.mobile-links li:nth-child(2) a', 'nav_how', 'text'],
+      ['.mobile-links li:nth-child(3) a', 'nav_pricing', 'text'],
+      ['.mobile-links li:nth-child(4) a', 'nav_faq', 'text'],
+      ['.mobile-links li:nth-child(5) a', 'nav_login', 'text'],
+      /* HERO */
+      ['.hero-badge', 'hero_badge', 'text'],
+      ['.hero h1 span:nth-child(1)', 'hero_h1_1', 'text'],
+      ['.hero h1 span:nth-child(2)', 'hero_h1_2', 'text'],
+      ['.hero h1 span:nth-child(3)', 'hero_h1_3', 'text'],
+      ['.hero-sub', 'hero_sub', 'text'],
+      ['#hero-cta-trial', 'hero_cta_trial', 'text'],
+      ['#hero-cta-demo', 'hero_cta_demo', 'text'],
+      ['.hero-stat:nth-child(1) .lbl', 'hero_lbl_1', 'text'],
+      ['.hero-stat:nth-child(2) .lbl', 'hero_lbl_2', 'text'],
+      ['.hero-stat:nth-child(3) .lbl', 'hero_lbl_3', 'text'],
+      ['.hero-stat:nth-child(4) .lbl', 'hero_lbl_4', 'text'],
+      /* PROBLEM */
+      ['#problem .section-label', 'prob_label', 'text'],
+      ['#problem .section-heading', 'prob_heading', 'text'],
+      ['.problem-list li:nth-child(1)', 'prob_1', 'html'],
+      ['.problem-list li:nth-child(2)', 'prob_2', 'html'],
+      ['.problem-list li:nth-child(3)', 'prob_3', 'html'],
+      ['.problem-list li:nth-child(4)', 'prob_4', 'html'],
+      ['.problem-list li:nth-child(5)', 'prob_5', 'html'],
+      ['.problem-list li:nth-child(6)', 'prob_6', 'html'],
+      /* SOLUTION */
+      ['#solution .section-label', 'sol_label', 'text'],
+      ['#solution .section-heading', 'sol_heading', 'html'],
+      ['.solution-list li:nth-child(1)', 'sol_1', 'html'],
+      ['.solution-list li:nth-child(2)', 'sol_2', 'html'],
+      ['.solution-list li:nth-child(3)', 'sol_3', 'html'],
+      ['.solution-list li:nth-child(4)', 'sol_4', 'html'],
+      ['.solution-list li:nth-child(5)', 'sol_5', 'html'],
+      ['.solution-list li:nth-child(6)', 'sol_6', 'html'],
+      /* FEATURES */
+      ['#features .section-label', 'feat_label', 'text'],
+      ['#features .section-heading', 'feat_heading', 'text'],
+      ['#features .section-sub', 'feat_sub', 'text'],
+      ['.feature-card:nth-child(1) h3', 'feat_h3_1', 'text'],
+      ['.feature-card:nth-child(1) p', 'feat_p_1', 'text'],
+      ['.feature-card:nth-child(2) h3', 'feat_h3_2', 'text'],
+      ['.feature-card:nth-child(2) p', 'feat_p_2', 'text'],
+      ['.feature-card:nth-child(3) h3', 'feat_h3_3', 'text'],
+      ['.feature-card:nth-child(3) p', 'feat_p_3', 'text'],
+      ['.feature-card:nth-child(4) h3', 'feat_h3_4', 'text'],
+      ['.feature-card:nth-child(4) p', 'feat_p_4', 'text'],
+      ['.feature-card:nth-child(5) h3', 'feat_h3_5', 'text'],
+      ['.feature-card:nth-child(5) p', 'feat_p_5', 'text'],
+      ['.feature-card:nth-child(6) h3', 'feat_h3_6', 'text'],
+      ['.feature-card:nth-child(6) p', 'feat_p_6', 'text'],
+      /* HOW IT WORKS */
+      ['#how .section-label', 'how_label', 'text'],
+      ['#how .section-heading', 'how_heading', 'text'],
+      ['.step-card:nth-child(1) h3', 'how_h3_1', 'text'],
+      ['.step-card:nth-child(1) p', 'how_p_1', 'text'],
+      ['.step-card:nth-child(2) h3', 'how_h3_2', 'text'],
+      ['.step-card:nth-child(2) p', 'how_p_2', 'text'],
+      ['.step-card:nth-child(3) h3', 'how_h3_3', 'text'],
+      ['.step-card:nth-child(3) p', 'how_p_3', 'text'],
+      /* FESTIVAL */
+      ['#festival .section-label', 'fest_label', 'text'],
+      ['#festival .section-heading', 'fest_heading', 'html'],
+      ['#festival .section-sub', 'fest_sub', 'text'],
+      ['.fest-card:nth-child(1) h4', 'fest_h4_1', 'text'],
+      ['.fest-card:nth-child(1) p', 'fest_p_1', 'text'],
+      ['.fest-card:nth-child(2) h4', 'fest_h4_2', 'text'],
+      ['.fest-card:nth-child(2) p', 'fest_p_2', 'text'],
+      ['.fest-card:nth-child(3) h4', 'fest_h4_3', 'text'],
+      ['.fest-card:nth-child(3) p', 'fest_p_3', 'text'],
+      /* TESTIMONIALS */
+      ['#testimonials .section-label', 'test_label', 'text'],
+      ['#testimonials .section-heading', 'test_heading', 'text'],
+      ['#testimonials .section-sub', 'test_sub', 'text'],
+      ['.test-card:nth-child(1) .test-quote', 'test_q_1', 'text'],
+      ['.test-card:nth-child(2) .test-quote', 'test_q_2', 'text'],
+      ['.test-card:nth-child(3) .test-quote', 'test_q_3', 'text'],
+      ['.test-card:nth-child(4) .test-quote', 'test_q_4', 'text'],
+      /* PRICING */
+      ['#pricing .section-label', 'price_label', 'text'],
+      ['#pricing .section-heading', 'price_heading', 'text'],
+      ['#pricing .section-sub', 'price_sub', 'text'],
+      ['.price-note', 'price_note', 'text'],
+      /* FAQ */
+      ['#faq .section-label', 'faq_label', 'text'],
+      ['#faq .section-heading', 'faq_heading', 'text'],
+      ['.faq-item:nth-child(1) .faq-a-inner', 'faq_a_1', 'text'],
+      ['.faq-item:nth-child(2) .faq-a-inner', 'faq_a_2', 'text'],
+      ['.faq-item:nth-child(3) .faq-a-inner', 'faq_a_3', 'text'],
+      ['.faq-item:nth-child(4) .faq-a-inner', 'faq_a_4', 'text'],
+      ['.faq-item:nth-child(5) .faq-a-inner', 'faq_a_5', 'text'],
+      ['.faq-item:nth-child(6) .faq-a-inner', 'faq_a_6', 'text'],
+      ['.faq-item:nth-child(1) .faq-q', 'faq_q_1', 'html'],
+      ['.faq-item:nth-child(2) .faq-q', 'faq_q_2', 'html'],
+      ['.faq-item:nth-child(3) .faq-q', 'faq_q_3', 'html'],
+      ['.faq-item:nth-child(4) .faq-q', 'faq_q_4', 'html'],
+      ['.faq-item:nth-child(5) .faq-q', 'faq_q_5', 'html'],
+      ['.faq-item:nth-child(6) .faq-q', 'faq_q_6', 'html'],
+      /* CTA */
+      ['#cta .section-label', 'cta_label', 'text'],
+      ['#cta .section-heading', 'cta_heading', 'html'],
+      ['#cta .section-sub', 'cta_sub', 'text'],
+      ['#cta-trial', 'cta_trial', 'text'],
+      ['#cta-whatsapp', 'cta_whatsapp', 'text'],
+      /* FOOTER */
+      ['.footer-brand p', 'footer_desc', 'text'],
+      ['.footer-col:nth-child(2) h4', 'footer_h4_1', 'text'],
+      ['.footer-col:nth-child(3) h4', 'footer_h4_2', 'text'],
+      ['.footer-col:nth-child(4) h4', 'footer_h4_3', 'text'],
+      ['.footer-bottom span:first-child', 'footer_copy', 'text'],
+      ['.footer-bottom span:last-child', 'footer_made', 'html'],
+      /* COOKIE */
+      ['.cookie-title', 'cookie_title', 'text'],
+      ['.cookie-sub', 'cookie_sub', 'html'],
+      ['.cookie-btn-reject', 'cookie_reject', 'text'],
+      ['.cookie-btn-accept', 'cookie_accept', 'text'],
+    ];
+
+    const T = {
+      en: {
+        nav_features: 'Features', nav_how: 'How It Works', nav_pricing: 'Pricing', nav_faq: 'FAQ',
+        nav_login: 'Login', nav_trial: 'Start Free Trial',
+        hero_badge: '★ India\'s #1 Sweet Shop POS',
+        hero_h1_1: 'Create bills.', hero_h1_2: 'Track stock.', hero_h1_3: 'Manage staff.',
+        hero_sub: 'WhatsApp reports at night, token system at counter, gift box billing during festivals — everything in one app. No hassle.',
+        hero_cta_trial: '14 Days Free Trial — No Card Required', hero_cta_demo: 'Watch Demo →',
+        hero_lbl_1: 'Beta Users', hero_lbl_2: 'Billed', hero_lbl_3: 'Rating', hero_lbl_4: 'Cities',
+        prob_label: 'We understand your problems',
+        prob_heading: 'Does this happen in your shop too?',
+        prob_1: '<span class="problem-icon">✗</span>Spending 2 hours at night manually adding bills — exhausting work',
+        prob_2: '<span class="problem-icon">✗</span>Can\'t track individual staff sales — no idea who sold how much',
+        prob_3: '<span class="problem-icon">✗</span>Bill cancellation fraud at counter — owner doesn\'t even know',
+        prob_4: '<span class="problem-icon">✗</span>Stock runs out during festivals — no advance booking system',
+        prob_5: '<span class="problem-icon">✗</span>Manually calculating gift boxes — wastes time and causes mistakes',
+        prob_6: '<span class="problem-icon">✗</span>Can\'t remember vendor dues — how much to pay, when to pay?',
+        sol_label: 'MeethaKhata\'s solution',
+        sol_heading: 'Now everything is <span class="gold-text">automatic</span>',
+        sol_1: '<span class="solution-icon">✓</span>Auto WhatsApp report at 9 PM — check from home',
+        sol_2: '<span class="solution-icon">✓</span>Every staff\'s individual sales live on dashboard — see everything at a glance',
+        sol_3: '<span class="solution-icon">✓</span>Anti-theft audit log — every cancelled bill is tracked, owner gets alert',
+        sol_4: '<span class="solution-icon">✓</span>Festival advance booking system — not a single order will be missed',
+        sol_5: '<span class="solution-icon">✓</span>Gift box builder — choose size, add sweets, price calculated automatically',
+        sol_6: '<span class="solution-icon">✓</span>Vendor payment tracker — automatic WhatsApp reminder on due date',
+        feat_label: 'What you\'ll get', feat_heading: 'Built specifically for sweet shops',
+        feat_sub: 'Vyapar and Tally are generic tools. MeethaKhata is designed specifically for your shop.',
+        feat_h3_1: 'Fast Billing + Token System',
+        feat_p_1: 'Create bills in 1 minute, print tokens, share on WhatsApp. No tension even during counter rush.',
+        feat_h3_2: 'AI Bill Scanner',
+        feat_p_2: 'Take a photo of vendor invoice — AI adds all items to stock in 5 seconds. Zero manual entry.',
+        feat_h3_3: 'Gift Box Builder',
+        feat_p_3: 'Create Diwali gift boxes in 2 minutes. Choose weight, add sweets, price is automatic.',
+        feat_h3_4: 'Smart Stock Alerts',
+        feat_p_4: 'Stock levels tracked live. Expiry date alerts. Wastage automatically recorded as expense.',
+        feat_h3_5: 'Reports & Analytics',
+        feat_p_5: 'Sales, profit, staff performance — everything in one tap. Export to PDF or Excel anytime.',
+        feat_h3_6: 'EOD WhatsApp Report',
+        feat_p_6: 'Automatic WhatsApp at 9 PM — today\'s sales, remaining stock, top performer.',
+        how_label: 'Getting started is super easy', how_heading: 'Get your shop ready in 3 steps',
+        how_h3_1: 'Register your shop',
+        how_p_1: 'Just need name, phone number and city. Account ready in 2 minutes. No credit card, no paperwork.',
+        how_h3_2: 'Add products and staff',
+        how_p_2: 'Scan old vendor bills — AI automatically adds all items. Staff login IDs created in 1 click.',
+        how_h3_3: 'Start billing, see profits',
+        how_p_3: 'Everything live from day one. WhatsApp report at night — know everything without opening the app.',
+        fest_label: 'Only for sweet shops',
+        fest_heading: 'Festival season? <span class="gold-text">MeethaKhata is ready!</span>',
+        fest_sub: 'Diwali, Holi, Eid, Navratri — shop gets 2x busy during every festival.',
+        fest_h4_1: 'Advance Booking System', fest_p_1: 'Book orders 1 month before the festival. Not a single order will be missed.',
+        fest_h4_2: 'Gift Box Builder', fest_p_2: 'Create custom gift boxes — 250g to 2kg. Mix multiple sweets, price is automatic.',
+        fest_h4_3: 'Festival Auto-Offers', fest_p_3: 'Reminder comes 7 days before. Offer automatically applies at billing counter.',
+        test_label: 'Real people, real results', test_heading: 'What shop owners are saying',
+        test_sub: '500+ shops already using MeethaKhata. 4.9 ★ average rating.',
+        test_q_1: '"Earlier I used to spend 2 hours at night doing accounts. Now the report comes on WhatsApp and I check from home. Life became easier!"',
+        test_q_2: '"Advance booking during festivals meant not a single order was missed. Diwali business was ₹4 lakh — double from last year!"',
+        test_q_3: '"Staff thought I was watching everything — counter theft completely stopped. Anti-theft feature saved ₹8,000/month extra."',
+        test_q_4: '"Gift box builder doubled my speed. Mix 5 sweets in a 500g box — price automatic. 200 gift boxes during Diwali without mistakes!"',
+        price_label: 'Simple pricing', price_heading: 'Choose the right plan for your shop',
+        price_sub: 'All plans include 14-day free trial. No credit card required. Cancel anytime.',
+        price_note: 'Annual plan gets 2 months free · No contract · Cancel anytime',
+        faq_label: 'Questions & Answers', faq_heading: 'What questions do you have?',
+        faq_q_1: 'Will this app work on mobile?<span class="faq-toggle">+</span>',
+        faq_a_1: 'Absolutely! Android, iPhone, tablet — works on all. Open meethakhata.in in Chrome and tap "Add to Home Screen". Feels just like a native app.',
+        faq_q_2: 'What if there\'s no internet?<span class="faq-toggle">+</span>',
+        faq_a_2: 'Offline billing works too! Bills keep getting created. When internet comes, everything auto-syncs to cloud. No internet tension at the counter.',
+        faq_q_3: 'Will my data be safe?<span class="faq-toggle">+</span>',
+        faq_a_3: 'Absolutely safe. Your data is stored on Indian servers (Mumbai region). Bank-level encryption. Only you can see it.',
+        faq_q_4: 'Does staff need training?<span class="faq-toggle">+</span>',
+        faq_a_4: 'Any counter staff can learn billing in 10 minutes. We do onboarding visits and provide Hindi video guides.',
+        faq_q_5: 'How many counters can run?<span class="faq-toggle">+</span>',
+        faq_a_5: 'Basic plan: 1 counter, Pro: 4 counters, Premium: unlimited counters.',
+        faq_q_6: 'Is it easy to cancel?<span class="faq-toggle">+</span>',
+        faq_a_6: 'Yes, no lock-in contract. Cancel anytime from Settings. Data stays safe for 30 days, you can download it.',
+        cta_label: 'Start now',
+        cta_heading: '14 days <span class="gold-text">completely free.</span> No card required.',
+        cta_sub: '500+ shops already using MeethaKhata. When are you starting?',
+        cta_trial: 'Start Free Trial →', cta_whatsapp: 'Watch Demo on WhatsApp',
+        footer_desc: 'India\'s #1 Sweet Shop POS and Business Management App. Clear accounts, sweet business!',
+        footer_h4_1: 'Product', footer_h4_2: 'Company', footer_h4_3: 'Support',
+        footer_copy: '© 2026 MeethaKhata. All rights reserved.',
+        footer_made: 'Made with <span class="heart">♥</span> for Indian Sweet Shop Owners',
+        cookie_title: 'We use cookies',
+        cookie_sub: 'To improve your experience. Read our <a href="#" class="cookie-link">Privacy Policy</a>.',
+        cookie_reject: 'Only essential', cookie_accept: 'Accept all',
+      },
+      hi: {
+        nav_features: 'फीचर्स', nav_how: 'कैसे काम करता है', nav_pricing: 'कीमत', nav_faq: 'सवाल-जवाब',
+        nav_login: 'लॉगिन', nav_trial: 'फ्री ट्रायल शुरू करें',
+        hero_badge: '★ भारत का #1 मिठाई दुकान POS',
+        hero_h1_1: 'बिल बनाओ।', hero_h1_2: 'स्टॉक देखो।', hero_h1_3: 'स्टाफ संभालो।',
+        hero_sub: 'रात को WhatsApp पर रिपोर्ट, काउंटर पर टोकन सिस्टम, त्योहारों में गिफ्ट बॉक्स बिलिंग — सब कुछ एक ऐप में। कोई झंझट नहीं।',
+        hero_cta_trial: '14 दिन मुफ्त ट्रायल — कोई कार्ड नहीं', hero_cta_demo: 'डेमो देखें →',
+        hero_lbl_1: 'बीटा यूज़र्स', hero_lbl_2: 'बिल किए', hero_lbl_3: 'रेटिंग', hero_lbl_4: 'शहर',
+        prob_label: 'हम समझते हैं आपकी तकलीफ',
+        prob_heading: 'क्या आपकी दुकान में भी ये होता है?',
+        prob_1: '<span class="problem-icon">✗</span>रात को 2 घंटे बिल मैन्युअली जोड़ने पड़ते हैं — थका देने वाला काम',
+        prob_2: '<span class="problem-icon">✗</span>स्टाफ की व्यक्तिगत बिक्री ट्रैक नहीं होती — कौन कितना बेचा, पता नहीं',
+        prob_3: '<span class="problem-icon">✗</span>काउंटर पर बिल कैंसल करके चोरी — मालिक को पता भी नहीं चलता',
+        prob_4: '<span class="problem-icon">✗</span>त्योहार में स्टॉक खत्म — एडवांस बुकिंग का कोई सिस्टम नहीं',
+        prob_5: '<span class="problem-icon">✗</span>गिफ्ट बॉक्स मैन्युअली कैलकुलेट करना — समय बर्बाद और गलतियाँ',
+        prob_6: '<span class="problem-icon">✗</span>वेंडर का उधार याद नहीं रहता — कितना देना है, कब देना है?',
+        sol_label: 'MeethaKhata का समाधान',
+        sol_heading: 'अब सब कुछ <span class="gold-text">ऑटोमैटिक</span> है',
+        sol_1: '<span class="solution-icon">✓</span>रात 9 बजे ऑटोमैटिकली WhatsApp पर रिपोर्ट — घर बैठे देखो',
+        sol_2: '<span class="solution-icon">✓</span>हर काउंटर स्टाफ की बिक्री डैशबोर्ड में लाइव — एक नज़र में सब',
+        sol_3: '<span class="solution-icon">✓</span>एंटी-थेफ्ट ऑडिट लॉग — हर कैंसल बिल ट्रैक होती है, मालिक को अलर्ट',
+        sol_4: '<span class="solution-icon">✓</span>त्योहार एडवांस बुकिंग सिस्टम — एक भी ऑर्डर मिस नहीं होगा',
+        sol_5: '<span class="solution-icon">✓</span>गिफ्ट बॉक्स बिल्डर — साइज़ चुनो, मिठाई डालो, कीमत ऑटोमैटिक',
+        sol_6: '<span class="solution-icon">✓</span>वेंडर पेमेंट ट्रैकर — ड्यू डेट पर WhatsApp रिमाइंडर ऑटोमैटिकली',
+        feat_label: 'क्या-क्या मिलेगा', feat_heading: 'मिठाई दुकान के लिए बनाया गया है',
+        feat_sub: 'व्यापार और Tally जेनेरिक टूल्स हैं। MeethaKhata खासतौर पर आपकी दुकान के लिए डिज़ाइन हुआ है।',
+        feat_h3_1: 'फास्ट बिलिंग + टोकन सिस्टम',
+        feat_p_1: '1 मिनट में बिल बनाओ, टोकन प्रिंट करो, WhatsApp पर शेयर करो। काउंटर रश में भी टेंशन नहीं।',
+        feat_h3_2: 'AI बिल स्कैनर',
+        feat_p_2: 'वेंडर का इनवॉइस फोटो खींचो — AI 5 सेकंड में सब आइटम स्टॉक में डाल देता है। मैन्युअल एंट्री ज़ीरो।',
+        feat_h3_3: 'गिफ्ट बॉक्स बिल्डर',
+        feat_p_3: 'दिवाली गिफ्ट बॉक्स 2 मिनट में बनाओ। वज़न चुनो, मिठाई डालो, कीमत ऑटोमैटिक।',
+        feat_h3_4: 'स्मार्ट स्टॉक अलर्ट्स',
+        feat_p_4: 'स्टॉक लेवल लाइव ट्रैक होता है। एक्सपायरी डेट अलर्ट करता है। बर्बादी ऑटोमैटिकली खर्चे में रिकॉर्ड।',
+        feat_h3_5: 'रिपोर्ट्स और एनालिटिक्स',
+        feat_p_5: 'सेल्स, प्रॉफिट, स्टाफ परफॉर्मेंस — सब कुछ एक टैप पर। PDF या Excel में एक्सपोर्ट कभी भी।',
+        feat_h3_6: 'EOD WhatsApp रिपोर्ट',
+        feat_p_6: 'रात 9 बजे ऑटोमैटिकली WhatsApp आता है — आज कितना हुआ, कितना बचा, कौन टॉप था।',
+        how_label: 'शुरू करना बहुत आसान है', how_heading: '3 स्टेप्स में अपनी दुकान रेडी करो',
+        how_h3_1: 'अपनी दुकान रजिस्टर करो',
+        how_p_1: 'सिर्फ नाम, फोन नंबर और शहर चाहिए। 2 मिनट में अकाउंट रेडी। कोई क्रेडिट कार्ड नहीं, कोई पेपरवर्क नहीं।',
+        how_h3_2: 'प्रोडक्ट्स और स्टाफ ऐड करो',
+        how_p_2: 'पुरानी वेंडर बिल्स स्कैन करो — AI ऑटोमैटिकली सब आइटम ऐड कर देता है। स्टाफ के लॉगिन IDs 1 क्लिक में।',
+        how_h3_3: 'बिलिंग शुरू करो, प्रॉफिट देखो',
+        how_p_3: 'पहले दिन से ही सब लाइव। और रात को WhatsApp पर रिपोर्ट — बिना ऐप खोले सब पता चले।',
+        fest_label: 'सिर्फ मिठाई दुकानों के लिए',
+        fest_heading: 'त्योहार का सीज़न? <span class="gold-text">MeethaKhata तैयार है!</span>',
+        fest_sub: 'दिवाली, होली, ईद, नवरात्रि — हर त्योहार पर दुकान 2x बिज़ी होती है।',
+        fest_h4_1: 'एडवांस बुकिंग सिस्टम', fest_p_1: 'त्योहार से 1 महीने पहले ऑर्डर बुक करो। एक भी ऑर्डर मिस नहीं होगा।',
+        fest_h4_2: 'गिफ्ट बॉक्स बिल्डर', fest_p_2: 'कस्टम गिफ्ट बॉक्स बनाओ — 250g से 2kg तक। मल्टीपल मिठाई मिक्स करो, कीमत ऑटोमैटिक।',
+        fest_h4_3: 'फेस्टिवल ऑटो-ऑफर्स', fest_p_3: '7 दिन पहले रिमाइंडर आता है। बिलिंग काउंटर पर ऑटोमैटिकली ऑफर अप्लाई होती है।',
+        test_label: 'असली लोग, असली नतीजे', test_heading: 'दुकान मालिक क्या कह रहे हैं',
+        test_sub: '500+ दुकानें पहले से MeethaKhata इस्तेमाल कर रही हैं। 4.9 ★ औसत रेटिंग।',
+        test_q_1: '"पहले रात को 2 घंटे सब हिसाब करता था। अब WhatsApp पर रिपोर्ट आ जाती है और मैं घर बैठे देख लेता हूँ। ज़िंदगी आसान हो गयी!"',
+        test_q_2: '"त्योहार में एडवांस बुकिंग मिली तो एक भी ऑर्डर मिस नहीं हुआ। दिवाली पर ₹4 लाख का बिज़नेस — पिछले साल से डबल!"',
+        test_q_3: '"स्टाफ को लगा मैं सब देख रहा हूँ — काउंटर पर चोरी बिल्कुल बंद। एंटी-थेफ्ट फीचर ने ₹8,000/महीना बचाये।"',
+        test_q_4: '"गिफ्ट बॉक्स बिल्डर ने मेरी स्पीड डबल कर दी। 500g बॉक्स में 5 मिठाई — कीमत ऑटोमैटिक। दिवाली में 200 बॉक्स बिना गलती के!"',
+        price_label: 'सरल कीमत', price_heading: 'अपनी दुकान के लिए सही प्लान चुनो',
+        price_sub: 'सभी प्लान में 14 दिन फ्री ट्रायल। कोई कार्ड नहीं। कभी भी कैंसल करो।',
+        price_note: 'सालाना प्लान पर 2 महीने फ्री · कोई कॉन्ट्रैक्ट नहीं · कभी भी कैंसल करो',
+        faq_label: 'सवाल जवाब', faq_heading: 'आपके मन में क्या सवाल हैं?',
+        faq_q_1: 'क्या ये ऐप मोबाइल पर चलेगा?<span class="faq-toggle">+</span>',
+        faq_a_1: 'हाँ बिल्कुल! Android, iPhone, टैबलेट — सब पर। Chrome में meethakhata.in खोलो और "Add to Home Screen" करो। नेटिव ऐप जैसा फील।',
+        faq_q_2: 'इंटरनेट न हो तो क्या होगा?<span class="faq-toggle">+</span>',
+        faq_a_2: 'ऑफलाइन बिलिंग भी काम करती है! बिल बनते रहें। इंटरनेट पर ऑटो-सिंक। काउंटर पर टेंशन नहीं।',
+        faq_q_3: 'मेरा डेटा सेफ रहेगा?<span class="faq-toggle">+</span>',
+        faq_a_3: 'बिल्कुल सेफ। इंडियन सर्वर्स (मुंबई)। बैंक जैसी एन्क्रिप्शन। सिर्फ आप देख सकते हैं।',
+        faq_q_4: 'स्टाफ को ट्रेनिंग चाहिए?<span class="faq-toggle">+</span>',
+        faq_a_4: '10 मिनट में कोई भी सीख जाता है। ऑनबोर्डिंग विज़िट + हिंदी वीडियो गाइड मिलती है।',
+        faq_q_5: 'कितने काउंटर्स चल सकते हैं?<span class="faq-toggle">+</span>',
+        faq_a_5: 'Basic: 1 काउंटर, Pro: 4 काउंटर्स, Premium: अनलिमिटेड।',
+        faq_q_6: 'कैंसल करना आसान है?<span class="faq-toggle">+</span>',
+        faq_a_6: 'हाँ, कोई लॉक-इन नहीं। Settings से कभी भी। डेटा 30 दिन सेफ, डाउनलोड कर सकते हैं।',
+        cta_label: 'अभी शुरू करो',
+        cta_heading: '14 दिन <span class="gold-text">बिल्कुल फ्री।</span> कोई कार्ड नहीं।',
+        cta_sub: '500+ दुकानें MeethaKhata इस्तेमाल कर रही हैं। आप कब शुरू कर रहे हैं?',
+        cta_trial: 'फ्री ट्रायल शुरू करो →', cta_whatsapp: 'WhatsApp पर डेमो देखो',
+        footer_desc: 'भारत का #1 मिठाई दुकान POS और बिज़नेस मैनेजमेंट ऐप। हिसाब सीधा, धंधा मीठा!',
+        footer_h4_1: 'प्रोडक्ट', footer_h4_2: 'कंपनी', footer_h4_3: 'सहायता',
+        footer_copy: '© 2026 MeethaKhata. सर्वाधिकार सुरक्षित।',
+        footer_made: '<span class="heart">♥</span> से बनाया, भारतीय मिठाई दुकान मालिकों के लिए',
+        cookie_title: 'हम कुकीज़ इस्तेमाल करते हैं',
+        cookie_sub: 'आपका अनुभव बेहतर बनाने के लिए। <a href="#" class="cookie-link">गोपनीयता नीति</a> पढ़ें।',
+        cookie_reject: 'सिर्फ ज़रूरी', cookie_accept: 'सब स्वीकार करो',
+      },
+      mr: {
+        nav_features: 'वैशिष्ट्ये', nav_how: 'कसं काम करतं', nav_pricing: 'किंमत', nav_faq: 'प्रश्नोत्तरे',
+        nav_login: 'लॉगिन', nav_trial: 'फ्री ट्रायल सुरू करा',
+        hero_badge: '★ भारतातील #1 मिठाई दुकान POS',
+        hero_h1_1: 'बिल बनवा.', hero_h1_2: 'स्टॉक पहा.', hero_h1_3: 'स्टाफ सांभाळा.',
+        hero_sub: 'रात्री WhatsApp वर रिपोर्ट, काउंटरवर टोकन सिस्टम, सणांमध्ये गिफ्ट बॉक्स बिलिंग — सगळं एकाच अ‍ॅपमध्ये. कोणताही त्रास नाही.',
+        hero_cta_trial: '14 दिवस मोफत ट्रायल — कार्ड नाही', hero_cta_demo: 'डेमो पहा →',
+        hero_lbl_1: 'बीटा वापरकर्ते', hero_lbl_2: 'बिल केले', hero_lbl_3: 'रेटिंग', hero_lbl_4: 'शहरे',
+        prob_label: 'आम्ही समजतो तुमची समस्या',
+        prob_heading: 'तुमच्या दुकानातही असं होतं का?',
+        prob_1: '<span class="problem-icon">✗</span>रात्री 2 तास बिलं मॅन्युअली जोडायला लागतात — थकवणारं काम',
+        prob_2: '<span class="problem-icon">✗</span>स्टाफच्या वैयक्तिक विक्रीचा मागोवा नाही — कोणी किती विकलं, माहीत नाही',
+        prob_3: '<span class="problem-icon">✗</span>काउंटरवर बिल कॅन्सल करून चोरी — मालकाला कळतही नाही',
+        prob_4: '<span class="problem-icon">✗</span>सणांमध्ये स्टॉक संपतो — अ‍ॅडव्हान्स बुकिंगची व्यवस्था नाही',
+        prob_5: '<span class="problem-icon">✗</span>गिफ्ट बॉक्स मॅन्युअली कॅल्क्युलेट — वेळ वाया आणि चुका',
+        prob_6: '<span class="problem-icon">✗</span>विक्रेत्याचं उधार लक्षात नाही — किती द्यायचं, केव्हा द्यायचं?',
+        sol_label: 'MeethaKhata चा उपाय',
+        sol_heading: 'आता सगळं <span class="gold-text">ऑटोमॅटिक</span> आहे',
+        sol_1: '<span class="solution-icon">✓</span>रात्री 9 वाजता WhatsApp वर रिपोर्ट — घरबसल्या पहा',
+        sol_2: '<span class="solution-icon">✓</span>प्रत्येक स्टाफची विक्री डॅशबोर्डवर लाइव्ह — एका नजरेत सगळं',
+        sol_3: '<span class="solution-icon">✓</span>अँटी-थेफ्ट ऑडिट लॉग — प्रत्येक कॅन्सल बिल ट्रॅक, मालकाला अलर्ट',
+        sol_4: '<span class="solution-icon">✓</span>सणांसाठी अ‍ॅडव्हान्स बुकिंग — एकही ऑर्डर चुकणार नाही',
+        sol_5: '<span class="solution-icon">✓</span>गिफ्ट बॉक्स बिल्डर — आकार निवडा, मिठाई टाका, किंमत ऑटोमॅटिक',
+        sol_6: '<span class="solution-icon">✓</span>विक्रेता पेमेंट ट्रॅकर — ड्यू डेटला WhatsApp रिमाइंडर',
+        feat_label: 'काय-काय मिळेल', feat_heading: 'मिठाई दुकानासाठी बनवलेलं',
+        feat_sub: 'व्यापार आणि Tally जेनेरिक आहेत. MeethaKhata तुमच्या दुकानासाठी डिझाइन केलेलं.',
+        feat_h3_1: 'फास्ट बिलिंग + टोकन सिस्टम',
+        feat_p_1: '1 मिनिटात बिल बनवा, टोकन प्रिंट करा, WhatsApp वर शेअर करा. रशमध्येही टेन्शन नाही.',
+        feat_h3_2: 'AI बिल स्कॅनर',
+        feat_p_2: 'विक्रेत्याच्या इन्व्हॉइसचा फोटो काढा — AI 5 सेकंदात स्टॉकमध्ये टाकतो. मॅन्युअल एंट्री शून्य.',
+        feat_h3_3: 'गिफ्ट बॉक्स बिल्डर',
+        feat_p_3: 'दिवाळी गिफ्ट बॉक्स 2 मिनिटात. वजन निवडा, मिठाई टाका, किंमत ऑटोमॅटिक.',
+        feat_h3_4: 'स्मार्ट स्टॉक अलर्ट्स',
+        feat_p_4: 'स्टॉक लेव्हल लाइव्ह ट्रॅक. एक्स्पायरी डेट अलर्ट. वाया गेलेलं खर्चात ऑटो रेकॉर्ड.',
+        feat_h3_5: 'रिपोर्ट्स आणि अॅनालिटिक्स',
+        feat_p_5: 'सेल्स, प्रॉफिट, स्टाफ परफॉर्मन्स — एका टॅपवर. PDF किंवा Excel केव्हाही.',
+        feat_h3_6: 'EOD WhatsApp रिपोर्ट',
+        feat_p_6: 'रात्री 9 वाजता WhatsApp येतो — आज किती झालं, किती उरलं, कोण टॉप.',
+        how_label: 'सुरू करणं खूप सोपं', how_heading: '3 स्टेप्समध्ये दुकान तयार करा',
+        how_h3_1: 'दुकान रजिस्टर करा',
+        how_p_1: 'फक्त नाव, फोन आणि शहर. 2 मिनिटात अकाउंट. क्रेडिट कार्ड नाही, पेपरवर्क नाही.',
+        how_h3_2: 'प्रॉडक्ट्स आणि स्टाफ अ‍ॅड करा',
+        how_p_2: 'जुनी बिलं स्कॅन करा — AI ऑटो अ‍ॅड करतो. स्टाफ लॉगिन 1 क्लिकमध्ये.',
+        how_h3_3: 'बिलिंग सुरू करा, प्रॉफिट पहा',
+        how_p_3: 'पहिल्या दिवसापासून लाइव्ह. रात्री WhatsApp रिपोर्ट — अ‍ॅप न उघडता सगळं कळतं.',
+        fest_label: 'फक्त मिठाई दुकानांसाठी',
+        fest_heading: 'सणांचा हंगाम? <span class="gold-text">MeethaKhata तयार!</span>',
+        fest_sub: 'दिवाळी, होळी, ईद, नवरात्री — प्रत्येक सणाला दुकान 2x व्यस्त.',
+        fest_h4_1: 'अ‍ॅडव्हान्स बुकिंग', fest_p_1: 'सणापूर्वी 1 महिना ऑर्डर बुक करा. एकही ऑर्डर चुकणार नाही.',
+        fest_h4_2: 'गिफ्ट बॉक्स बिल्डर', fest_p_2: 'कस्टम बॉक्स — 250g ते 2kg. मिठाई मिक्स करा, किंमत ऑटोमॅटिक.',
+        fest_h4_3: 'फेस्टिव्हल ऑटो-ऑफर्स', fest_p_3: '7 दिवस आधी रिमाइंडर. काउंटरवर ऑटो ऑफर.',
+        test_label: 'खरे लोक, खरे निकाल', test_heading: 'दुकान मालक काय म्हणतात',
+        test_sub: '500+ दुकाने MeethaKhata वापरतात. 4.9 ★ सरासरी रेटिंग.',
+        test_q_1: '"आधी रात्री 2 तास हिशोब. आता WhatsApp वर रिपोर्ट येते, घरी बसून पाहतो. आयुष्य सोपं झालं!"',
+        test_q_2: '"सणांत अ‍ॅडव्हान्स बुकिंग मिळाली, एकही ऑर्डर चुकला नाही. दिवाळीला ₹4 लाख — मागच्या वर्षापेक्षा दुप्पट!"',
+        test_q_3: '"स्टाफला वाटलं मी पाहतोय — चोरी पूर्ण बंद. अँटी-थेफ्टने ₹8,000/महिना वाचवले."',
+        test_q_4: '"गिफ्ट बॉक्स बिल्डरने वेग दुप्पट केला. 500g मध्ये 5 मिठाई — किंमत ऑटो. 200 बॉक्स चुकीशिवाय!"',
+        price_label: 'सोपी किंमत', price_heading: 'तुमच्या दुकानासाठी योग्य प्लॅन निवडा',
+        price_sub: 'सर्व प्लॅनमध्ये 14 दिवस मोफत. कार्ड नाही. केव्हाही कॅन्सल.',
+        price_note: 'वार्षिक प्लॅनवर 2 महिने मोफत · कॉन्ट्रॅक्ट नाही · केव्हाही कॅन्सल',
+        faq_label: 'प्रश्नोत्तरे', faq_heading: 'तुमच्या मनात कोणते प्रश्न आहेत?',
+        faq_q_1: 'हे अ‍ॅप मोबाइलवर चालेल?<span class="faq-toggle">+</span>',
+        faq_a_1: 'हो! Android, iPhone, टॅबलेट — सगळ्यांवर. Chrome मध्ये "Add to Home Screen" करा.',
+        faq_q_2: 'इंटरनेट नसेल तर?<span class="faq-toggle">+</span>',
+        faq_a_2: 'ऑफलाइन बिलिंग काम करतं! इंटरनेट आल्यावर ऑटो सिंक. काउंटरवर चिंता नाही.',
+        faq_q_3: 'डेटा सुरक्षित राहील?<span class="faq-toggle">+</span>',
+        faq_a_3: 'पूर्णपणे सुरक्षित. भारतीय सर्व्हर्स (मुंबई). बँक एन्क्रिप्शन. फक्त तुम्ही पाहू शकता.',
+        faq_q_4: 'स्टाफला ट्रेनिंग लागते?<span class="faq-toggle">+</span>',
+        faq_a_4: '10 मिनिटात शिकतो. ऑनबोर्डिंग भेट + हिंदी व्हिडिओ गाइड.',
+        faq_q_5: 'किती काउंटर्स चालतात?<span class="faq-toggle">+</span>',
+        faq_a_5: 'Basic: 1, Pro: 4, Premium: अमर्यादित.',
+        faq_q_6: 'कॅन्सल सोपं आहे?<span class="faq-toggle">+</span>',
+        faq_a_6: 'हो, लॉक-इन नाही. Settings मधून केव्हाही. डेटा 30 दिवस सुरक्षित.',
+        cta_label: 'आत्ता सुरू करा',
+        cta_heading: '14 दिवस <span class="gold-text">पूर्णपणे मोफत.</span> कार्ड नाही.',
+        cta_sub: '500+ दुकाने MeethaKhata वापरतात. तुम्ही केव्हा सुरू करणार?',
+        cta_trial: 'मोफत ट्रायल सुरू करा →', cta_whatsapp: 'WhatsApp वर डेमो पहा',
+        footer_desc: 'भारतातील #1 मिठाई दुकान POS आणि बिझनेस अ‍ॅप. हिशोब स्पष्ट, व्यवसाय गोड!',
+        footer_h4_1: 'प्रॉडक्ट', footer_h4_2: 'कंपनी', footer_h4_3: 'सहाय्य',
+        footer_copy: '© 2026 MeethaKhata. सर्व हक्क राखीव.',
+        footer_made: '<span class="heart">♥</span> ने बनवलं, मिठाई दुकान मालकांसाठी',
+        cookie_title: 'आम्ही कुकीज वापरतो',
+        cookie_sub: 'तुमचा अनुभव चांगला करण्यासाठी. <a href="#" class="cookie-link">गोपनीयता धोरण</a> वाचा.',
+        cookie_reject: 'फक्त आवश्यक', cookie_accept: 'सगळे स्वीकारा',
+      }
+    };
+
+    /* Store original Hinglish text on first load */
+    function storeOriginals() {
+      elementMap.forEach(([sel, key, prop]) => {
+        const el = document.querySelector(sel);
+        if (el) {
+          originalTexts.set(sel, prop === 'html' ? el.innerHTML : el.textContent);
+        }
+      });
+    }
+    storeOriginals();
+
+    function changeLang(lang) {
+      if (lang === 'default' || !T[lang]) {
+        resetLanguage();
+        return;
+      }
+      const dict = T[lang];
+      elementMap.forEach(([sel, key, prop]) => {
+        const el = document.querySelector(sel);
+        if (el && dict[key]) {
+          if (prop === 'html') { el.innerHTML = dict[key]; }
+          else { el.textContent = dict[key]; }
+        }
+      });
+      currentLang = lang;
+      /* Re-bind FAQ toggles after innerHTML replacement */
+      document.querySelectorAll('.faq-q').forEach(q => {
+        q.removeEventListener('click', faqHandler);
+        q.addEventListener('click', faqHandler);
+      });
+      if (typeof mobileMenu !== 'undefined' && mobileMenu) mobileMenu.classList.remove('open');
+      if (typeof langSwitch !== 'undefined' && langSwitch) langSwitch.classList.remove('active');
+    }
+
+    function resetLanguage() {
+      originalTexts.forEach((val, sel) => {
+        const el = document.querySelector(sel);
+        if (el) {
+          const entry = elementMap.find(e => e[0] === sel);
+          if (entry && entry[2] === 'html') { el.innerHTML = val; }
+          else if (el) { el.textContent = val; }
+        }
+      });
+      currentLang = 'default';
+      document.querySelectorAll('.faq-q').forEach(q => {
+        q.removeEventListener('click', faqHandler);
+        q.addEventListener('click', faqHandler);
+      });
+      if (typeof mobileMenu !== 'undefined' && mobileMenu) mobileMenu.classList.remove('open');
+      if (typeof langSwitch !== 'undefined' && langSwitch) langSwitch.classList.remove('active');
+    }
+
+    /* FAQ handler (extracted so we can re-bind after translation) */
+    function faqHandler() {
+      const item = this.parentElement;
+      const ans = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    }
   </script>
 
   <!-- WhatsApp Floating Button -->
-  <a class="wa-float" 
-     href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon." 
-     target="_blank" 
-     rel="noopener"
-     aria-label="Chat on WhatsApp">
+  <a class="wa-float"
+    href="https://wa.me/919920443421?text=Namaste!%20MeethaKhata%20ke%20baare%20mein%20jaanna%20chahta%20hoon."
+    target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <div class="wa-float-icon">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.556 4.121 1.524 5.855L0 24l6.335-1.54A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-4.964-1.348l-.357-.212-3.692.897.933-3.577-.233-.368A9.786 9.786 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        <path
+          d="M12 0C5.373 0 0 5.373 0 12c0 2.126.556 4.121 1.524 5.855L0 24l6.335-1.54A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-4.964-1.348l-.357-.212-3.692.897.933-3.577-.233-.368A9.786 9.786 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z" />
       </svg>
     </div>
     <div class="wa-float-label">Chat with us</div>
@@ -2220,7 +2945,7 @@
         <div>
           <div class="cookie-title">Hum cookies use karte hain</div>
           <div class="cookie-sub">
-            Aapka experience better banane ke liye. 
+            Aapka experience better banane ke liye.
             <a href="#" class="cookie-link">Privacy Policy</a> padh sakte hain.
           </div>
         </div>
